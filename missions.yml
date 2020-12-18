@@ -1,0 +1,76 @@
+mission_template: # 任务ID, 必须唯一, 可自定义.
+  display-name: '<&c>示例任务名称' # 任务名称, 颜色代码用Denizen标签表示. (*必填*)
+  start-time: '<time[2020/12/1]>' # 任务开始时间, 超过此时间后任务才可由trigger中的设定项激活.
+  expire-time: '<time[2020/12/7]>' # 任务结束时间, 以Denizen的TimeTag表示. 超过此时间后任务会立刻终止作废, steps中未完成项的奖励不可再获得.
+  allow-repeat: false # 任务是否可重复. (*必填*)
+  trigger: 'none' # 激活任务的方式, 任务将从steps的首项开始. 选填项: none(只能由特定事件激活), join(加入游戏时自动激活), dialog(在对话框中选择指定项后获得), search(搜索一件物体后激活), break|place(破坏|放置方块后激活), join|leave(进入|离开某一Denizen Cuboid后激活)... 更多触发项正在持续追加中, 欢迎补充. (*必填*)
+  steps: # 任务步骤. (*必填*)
+    '1': # 任务序号, 必须为非0自然数, 并按照升序排列. 如希望任务完成后再给予玩家奖励, 只为steps中最后一项设置rewards即可. (*必填*)
+      name: '与卡车司机对话' # 任务步骤名称 (*必填*)
+      type: 'dialog' # 该步骤任务类型. 此处代表对话类型任务, 在对话框中选择指定项后即可获得奖励. (*必填*)
+      dialog: 'kachesiji_hello' # 填写对话框ID.
+      selection: # 必须为列表格式, 对话框中选择任一项后即可完成步骤, 并进入下一步.
+      - '1'
+      - '2'
+      - '4'
+      selection-others: 'pass' # 在该对话框中若选择其他项, 任务将如何进展. 选填项: fail(任务失败), pass(跳过该步骤并忽略奖励, 直接进入下一步骤), repeat(重置该步骤).
+      rewards: # 完成该步骤后可获得的奖励
+        points: '600' # 通行证点数奖励. 负数代表扣除.
+        friendship: # NPC好感度变化. 负数代表扣除.
+          '0': # NPC的ID. 使用/npc select选中NPC后可通过/npc id查询该NPC的ID. (*必填*)
+            points: '1' # 该NPC对玩家好感度的变化. (*必填*)
+          '1':
+            points: '-1'
+          '5':
+            points: '3'
+        silver: '1000' # 给予玩家的银卡奖励数量. 负数代表扣除.
+        gold: '10' # 给予玩家的金卡奖励数量. 负数代表扣除.
+        nameplates: # 给予玩家的铭牌奖励.
+          'xinshou':
+            is-temp: true # 该铭牌是否具有临时性. (*必填*)
+            duration: '<duration[7d]>' # 必须使用Denizen DurationTag格式书写. (https://one.denizenscript.com/denizen/lngs/DurationTag%20Objects)
+        items: # 给予玩家的物品奖励, 可设置Denizen物品属性.
+        - 'weapon_shihunzhe'
+        - 'diamond_block[quantity=1;display=<&b><&o><player.name>的专属钻石]'
+        permissions: # 给予玩家的权限奖励.
+          'minez.notification.banwarn':
+            is-temp: true # 该权限是否具有临时性. (*必填*)
+            duration: '1mo3d13h45m' # 该权限的持续时间. 必须遵守LuckPerms写法. 详情参考: https://luckperms.net/wiki/Permission-Commands#lp-usergroup-usergroup-permission-settemp-node-truefalse-duration-temporary-modifier-context.
+            modifier: 'accumulate' # 该权限的持续时间覆盖方式. 必须遵守LuckPerms写法. 详情参考上一行链接.
+          'minez.command.minez':
+            is-temp: false
+        messages: # 该步骤完成后向玩家显示的信息.
+        - '<&a>恭喜你完成了第1步!'
+        messages_fail: # 该步骤失败后向玩家显示的信息.
+        - '<&a>第1步失败了, 任务流程已终止!'
+        sounds: # 该步骤完成后向玩家播放的音效.
+          'entity_player_levelup':
+            volume: 1.0
+            pitch: 2.0
+          'block_note_block_pling':
+            volume: 1.0
+            pitch: 2.0
+    '2':
+      name: '搜索20次植物'
+      type: 'search' # 搜索类型任务.
+      objects: # 计入任务步骤有效次数的物体. 一律采用蛇形命名法. 必须使用Spigot Material常量名. 详情参考: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html.
+      - 'grass'
+      - 'tall_grass'
+      - 'fern'
+      - 'large_fern'
+      search-times: '20' # 完成该步骤所需搜索次数.
+    '3':
+      name: '击杀15只羊'
+      type: 'kill' # 击杀类型任务.
+      entities: # 计入任务步骤有效次数的实体类型. 一律采用蛇形命名法. 必须使用Spigot EntityType常量名. 详情参考: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html.
+      - 'sheep'
+      - 'pig'
+      - 'cow'
+      kill-times: '15' # 完成该步骤所需击杀次数.
+    '4':
+      name: '制作1个斧或1个燧石镐'
+      type: 'craft' # 合成类型任务.
+      results: # 计入任务步骤有效次数的合成结果. 一律采用蛇形命名法. 必须使用自定义物品ID或Spigot Material常量名. 详情参考: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html.
+      - 'flint_axe'
+      - 'flint_pickaxe'
+      craft-times: '1' # 完成该步骤所需合成次数.
