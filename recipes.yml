@@ -1,0 +1,16 @@
+compass:
+  type: 'tools'
+  base: 'crafting_table'
+  trigger: 'join'
+  recipe:
+  - 'air'
+  - 'iron_ingot'
+  - 'air'
+  - 'iron_ingot'
+  - 'redstone'
+  - 'iron_ingot'
+  - 'air'
+  - 'iron_ingot'
+  - 'air'
+  result:
+  - 'compass'

@@ -1,9 +1,10 @@
 mission_template: # 任务ID, 必须唯一, 可自定义.
+  type: 'main' # 任务类型, 选填项: main(主线任务), daily(每日任务), weekly(每周任务), event(事件). (*必填*)
   display-name: '<&c>示例任务名称' # 任务名称, 颜色代码用Denizen标签表示. (*必填*)
   start-time: '<time[2020/12/1]>' # 任务开始时间, 超过此时间后任务才可由trigger中的设定项激活.
   expire-time: '<time[2020/12/7]>' # 任务结束时间, 以Denizen的TimeTag表示. 超过此时间后任务会立刻终止作废, steps中未完成项的奖励不可再获得.
   allow-repeat: false # 任务是否可重复. (*必填*)
-  trigger: 'manual' # 激活任务的方式, 任务将从steps的首项开始. 选填项: manual(只能由其它系统激活), join(加入游戏时自动激活), dialog(在对话中选择指定项后获得), search(搜索一件物体后激活), break|place(破坏|放置方块后激活), join|leave(进入|离开某一Denizen Cuboid后激活)... 更多触发项正在持续追加中, 欢迎补充. (*必填*)
+  trigger: 'manual' # 激活任务的方式, 任务将从steps的首项开始. 选填项: manual(只能由其它系统激活), join(加入游戏时自动激活), search(搜索一件物体后激活), break|place(破坏|放置方块后激活), join|leave(进入|离开某一Denizen Cuboid后激活)... 更多触发项正在持续追加中, 欢迎补充. (*必填*)
   steps: # 任务步骤. (*必填*)
     '1': # 任务序号, 必须为非0自然数, 并按照升序排列. 如希望任务完成后再给予玩家奖励, 只为steps中最后一项设置rewards即可. 每个步骤都有三种可能的结果: finish(完成当前步骤并领取奖励, 然后进入下一步骤), pass(跳过当前步骤, 忽略奖励, 直接进入下一步骤), fail(忽略当前步骤奖励, 并导致整个任务由此中断). (*必填*)
       name: '与卡车司机对话' # 任务步骤名称 (*必填*)
@@ -23,7 +24,7 @@ mission_template: # 任务ID, 必须唯一, 可自定义.
           'xinshou':
             is-temp: true # 该铭牌是否具有临时性. (*必填*)
             duration: '<duration[7d]>' # 必须使用Denizen DurationTag格式书写. (https://one.denizenscript.com/denizen/lngs/DurationTag%20Objects)
-        items: # 给予玩家的物品奖励, 可设置Denizen物品属性.
+        items: # 给予玩家的物品奖励, 可设置Denizen物品属性. 一条占据一格.
         - 'weapon_shihunzhe'
         - 'diamond_block[quantity=1;display=<&b><&o><player.name>的专属钻石]'
         permissions: # 给予玩家的权限奖励.
