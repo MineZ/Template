@@ -1,5 +1,6 @@
-compass:
+music_disc_13:
   type: 'tools'
+  name: '<&f>指南针'
   base: 'crafting_table'
   trigger: 'join'
   recipe:
@@ -13,4 +14,4 @@ compass:
   - 'iron_ingot'
   - 'air'
   result:
-  - 'compass'
+  - 'music_disc_13[display=<&f>指南针]'
