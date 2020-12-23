@@ -1,0 +1,8 @@
+649be37d-7996-40e7-8b00-bf989ac85ebc: # 玩家UUID.
+  using: 'nameplate_4' # 装备中的铭牌.
+  unlock: # 永久解锁的铭牌.
+  - 'nameplate_1'
+  - 'nameplate_2'
+  - 'nameplate_3'
+  temp-unlock: # 临时解锁的铭牌.
+    nameplate_4: '1608691324393' # 使用<server.current_time_millis>返回一个以毫秒为单位的时间戳来确定铭牌过期时间.
