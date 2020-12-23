@@ -1,12 +1,12 @@
 649be37d-7996-40e7-8b00-bf989ac85ebc: # 玩家UUID
   completed: # 已完成的任务
-  - start
-  - mission_1
-  - mission_2
-  - mission_3
+  - 'start'
+  - 'mission_1'
+  - 'mission_2'
+  - 'mission_3'
   failed: # 已失败的任务
-  - mission_4
-  - mission_5
+  - 'mission_4'
+  - 'mission_5'
   in-progress: # 正在进行中的任务
     mission_dialog: # 示例对话类型任务步骤.
       step: '2' # 正在进行中的步骤.
